@@ -1,0 +1,16 @@
+.header {
+    width: 100%;
+}
+
+.banner {
+    padding: 8px 0;
+}
+
+.bannerText {
+    padding: 8px 0;
+}
+
+.appName {
+    font-size: 28px;
+    font-family: var(--font-palanquin-dark);
+}
