@@ -1,16 +1,39 @@
-.header {
+.wrapper {
     width: 100%;
 }
 
 .banner {
     padding: 8px 0;
+    background-color: var(--gray-color);
 }
 
-.bannerText {
-    padding: 8px 0;
+.banner > p {
+    text-align: center;
 }
 
-.appName {
+.main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.row {
+    display: flex;
+    gap: 18px;
+}
+
+.main button {
+    border: 0;
+    background: none;
+}
+
+.main h1 {
     font-size: 28px;
     font-family: var(--font-palanquin-dark);
+    font-weight: 400;
+    line-height: 14.81px;
 }
