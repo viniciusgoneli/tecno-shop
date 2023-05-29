@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import "../styles/globals.css";
 import Header from "../components/Header";
+import AsideMenu from "@/components/AsideMenu";
+import HeaderWrapper from "@/components/HeaderWrapper";
 
 export const metadata = {
 	title: "Create Next App",
@@ -15,7 +17,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<Header />
+				<HeaderWrapper />
 				{children}
 			</body>
 		</html>
