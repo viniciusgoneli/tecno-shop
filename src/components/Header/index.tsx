@@ -8,14 +8,18 @@ import BagIcon from "../../../public/icons/bag.svg";
 
 const ICON_SIZE = 24;
 
-export default function Header() {
+interface HeaderProps {
+	onClickMenuButton: () => void;
+}
+
+export default function Header({ onClickMenuButton }: HeaderProps) {
 	return (
 		<header className={styles.wrapper}>
 			<section className={styles.banner}>
 				<p>Free Shipping On All U.S. Orders</p>
 			</section>
 			<section className={styles.main}>
-				<button>
+				<button onClick={onClickMenuButton}>
 					<Image
 						src={MenuIcon}
 						width={ICON_SIZE}
