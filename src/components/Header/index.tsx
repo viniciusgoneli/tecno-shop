@@ -19,7 +19,7 @@ export default function Header({ onClickMenuButton }: HeaderProps) {
 				<p>Free Shipping On All U.S. Orders</p>
 			</section>
 			<section className={styles.main}>
-				<button onClick={onClickMenuButton}>
+				<button data-testid="menu" onClick={onClickMenuButton}>
 					<Image
 						src={MenuIcon}
 						width={ICON_SIZE}
