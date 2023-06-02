@@ -55,7 +55,7 @@ export default forwardRef((props, ref) => {
 	};
 
 	return (
-		<div className={styles.wrapper}>
+		<div data-testid="aside" className={styles.wrapper}>
 			<div
 				onClick={handleClickDarkLayer}
 				className={darkLayerClass}
