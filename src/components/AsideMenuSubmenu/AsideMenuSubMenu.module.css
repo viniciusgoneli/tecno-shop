@@ -1,10 +1,13 @@
 .wrapper {
+    height: 100vh
 }
 
 .menus {
     width: 100%;
-    padding-top: 20px;
+    height: 60px;
     background-color: var(--gray-color);
+    display: flex;
+    align-items: flex-end;
 }
 
 .menus nav {
@@ -15,13 +18,26 @@
 .menuButton {
     margin-right: 34px;
     padding-bottom: 12px;
-    border-bottom: 1px solid black;
     padding-left: 8px;
     padding-right: 8px;
 }
 
+.menuButton > button {
+    cursor: pointer;
+}
+
+.menuButtonSelected {
+    border-bottom: 1px solid black;
+}
+
+.menuButtonSelected > button > span {
+    color: var(--dark-gray-color)
+}
+
 .itemsWrapper {
     padding: 28px 25px;
+    overflow-y: auto;
+    height: calc(100vh - 60px);
 }
 
 .itemsWrapper a {
