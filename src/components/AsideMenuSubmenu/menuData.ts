@@ -76,7 +76,7 @@ export const menuData = [
     },
     {
         id: 6,
-        title: "Beauty & Scents",
+        title: "Beauty And Scents",
         href: "",
         subItems: []
     }
