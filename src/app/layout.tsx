@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import Header from "../components/Header";
 import AsideMenu from "@/components/AsideMenu";
 import HeaderWrapper from "@/components/HeaderWrapper";
+import Footer from "@/components/Footer";
 
 export const metadata = {
 	title: "Create Next App",
@@ -19,6 +20,7 @@ export default function RootLayout({
 			<body>
 				<HeaderWrapper />
 				{children}
+				<Footer />
 			</body>
 		</html>
 	);
