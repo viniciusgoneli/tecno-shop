@@ -1,0 +1,85 @@
+.footer {
+    background-color: var(--gray-color);
+    padding: 24px 20px 30px 20px;
+    width: 100%;
+}
+
+.footer input {
+    width: 100%;
+    border-bottom: 1px solid var(--dark-gray-color);
+    outline: none;
+    padding-bottom: 5px;
+    margin-bottom: 21px;
+    
+    font-family: var(--font-mulish);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+
+
+    color: var(--dark-gray-color);
+}
+
+.footer button {
+    width: 100%;
+    background-color: #000;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.footer button > span {
+
+    font-family: var(--font-mulish);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 25px;
+    
+    text-align: center;
+    
+    color: #FFFFFF;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    margin-top: 43px;
+    gap: 40px;
+}
+
+.info div {
+    flex: 1;
+}
+
+.info h4 {
+    font-family: var(--font-ovo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+    color: #000000;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.info li {
+    margin-bottom: 10px;
+}
+
+.info li > a {
+    font-family: var(--font-mulish);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19px;
+    cursor: pointer;
+
+
+    color: #646464;
+
+}
