@@ -1,0 +1,78 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.imgWrapper {
+    margin-bottom: 8px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.info > h5 {
+    font-family: var(--font-mulish);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 13px;
+
+    color: var(--dark-gray-color);
+
+}
+
+.priceWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.price {
+    font-family: var(--font-ovo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+
+    display: flex;
+    align-items: flex-end;
+    text-align: right;
+    text-transform: uppercase;
+
+    color: var(--dark-gray-color);
+}
+
+.priceWithDiscount {
+    font-family: var(--font-ovo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+
+    display: flex;
+    align-items: flex-end;
+    text-align: right;
+    text-transform: uppercase;
+
+    color: #D94B39;
+}
+
+.oldPrice {
+    font-family: var(--font-ovo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+
+    display: flex;
+    align-items: flex-end;
+    text-align: right;
+    text-transform: uppercase;
+    text-decoration: line-through;
+
+    color: #ACACAC;
+}
