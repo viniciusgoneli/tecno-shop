@@ -4,7 +4,7 @@ import styles from "./ProductCard.module.css";
 import ImagesCarousel, { CarouselProps } from "../Carousel";
 import { ImageProps } from "@/types/imageProps";
 
-interface ProductCardProps {
+export interface ProductCardProps {
 	title: string;
 	price: number;
 	imgProps: ImageProps;
@@ -22,7 +22,12 @@ export default function ProductCard({
 	return (
 		<div className={styles.wrapper} style={{ ...style, width: 140 }}>
 			<div className={styles.imgWrapper}>
-				<Image {...imgProps} width={140} height={179} />
+				<Image
+					data-testid="prod-card-img"
+					{...imgProps}
+					width={140}
+					height={179}
+				/>
 			</div>
 			<div className={styles.info}>
 				<h5>{title}</h5>
