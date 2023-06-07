@@ -1,0 +1,37 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.option {
+    width: 40px;
+    height: 40px;
+    background-color: var(--gray-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.option > strong {
+    font-family: var(--font-mulish);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #494949;
+}
+
+.optionSelected {
+    border: 2px solid #000;
+}
+
+.optionSelected > strong {
+    color: #000;
+}
