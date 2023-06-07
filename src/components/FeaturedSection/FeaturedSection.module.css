@@ -1,0 +1,24 @@
+
+.wrapper {
+}
+  
+.wrapper > h3 {
+    font-family: var(--font-ovo);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 27px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  
+    color: #000000;
+  
+}
+  
+.cardsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 13px;
+}

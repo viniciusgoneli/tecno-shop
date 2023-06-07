@@ -9,6 +9,7 @@ import Prod2Img from "../../public/images/product-2.jpg";
 import Prod3Img from "../../public/images/product-3.jpg";
 import Prod4Img from "../../public/images/product-4.jpg";
 import { ImageProps } from "@/types/imageProps";
+import FeaturedSection from "@/components/FeaturedSection";
 
 const firstCardImgs = [
 	{
@@ -42,7 +43,7 @@ const thirdCardImg = [
 export default function Home() {
 	return (
 		<main className={styles.main}>
-			<section>
+			<section className={styles.homeSection}>
 				<HomeCard
 					carouselProps={{
 						height: 193,
@@ -74,47 +75,7 @@ export default function Home() {
 					style={{ marginBottom: 18 }}
 				/>
 			</section>
-			<section className={styles.featured}>
-				<h3>Featured</h3>
-				<div className={styles.cardsWrapper}>
-					<ProductCard
-						title={"Flowers on Sleeves Dress"}
-						price={155}
-						imgProps={{
-							src: "/images/product-1.jpg",
-							alt: "Prod 1",
-						}}
-						style={{ marginBottom: 20 }}
-					/>
-					<ProductCard
-						title={"Cat-Eye Resin Sunglasses in Clear"}
-						price={45}
-						imgProps={{
-							src: "/images/product-2.jpg",
-							alt: "Prod 2",
-						}}
-						style={{ marginBottom: 20 }}
-					/>
-					<ProductCard
-						title={"Flowers on Sleeves Dress"}
-						price={115}
-						imgProps={{
-							src: "/images/product-3.jpg",
-							alt: "Prod 3",
-						}}
-						style={{ marginBottom: 20 }}
-					/>
-					<ProductCard
-						title={"Cat-Eye Resin Sunglasses in Clear"}
-						price={78}
-						discountPercent={0.5}
-						imgProps={{
-							src: "/images/product-4.jpg",
-							alt: "Prod 4",
-						}}
-					/>
-				</div>
-			</section>
+			<FeaturedSection style={{ marginBottom: 36 }} />
 		</main>
 	);
 }
