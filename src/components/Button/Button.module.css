@@ -1,0 +1,21 @@
+.wrapper {
+    width: 100%;
+    height: 46px;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.wrapper > strong {
+    font-family: var(--font-mulish);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+}
