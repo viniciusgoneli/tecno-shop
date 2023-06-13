@@ -23,17 +23,8 @@ const mockedImages = [
 	},
 ] satisfies ImageProps[];
 
-const mockedWidth = 193;
-const mockedHeight = 291;
-
 const renderComponent = () => {
-	render(
-		<Carousel
-			images={mockedImages}
-			width={mockedWidth}
-			height={mockedHeight}
-		/>
-	);
+	render(<Carousel images={mockedImages} />);
 };
 
 describe("Carousel", () => {
@@ -82,8 +73,6 @@ describe("Carousel", () => {
 		render(
 			<Carousel
 				images={mockedImages}
-				width={mockedWidth}
-				height={mockedHeight}
 				autoplay
 				autoplayDuration={timeout}
 			/>
@@ -108,7 +97,7 @@ describe("Carousel", () => {
 		expect(initialFilledDot).not.toHaveClass("dotFill");
 	});
 
-	it("should move the slider in width size", () => {
+	it("should move the slider proportionally to the 'images' length.", () => {
 		renderComponent();
 
 		const images = screen.getAllByTestId(/image/);
@@ -136,6 +125,8 @@ describe("Carousel", () => {
 			)
 		);
 
-		expect(value / mockedWidth).toBe(-1 || 1);
+		const absValue = Math.abs(value);
+
+		expect(absValue).toBe(100 / images.length);
 	});
 });

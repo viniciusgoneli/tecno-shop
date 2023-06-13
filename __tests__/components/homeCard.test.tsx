@@ -25,10 +25,9 @@ const mockedSubtitle = "Product subtitle";
 const renderComponent = () => {
 	render(
 		<HomeCard
-			carouselProps={{ images: mockedImages, height: mockedHeight }}
-			width={mockedWidth}
 			title={mockedTitle}
 			subtitle={mockedSubtitle}
+			images={mockedImages}
 		/>
 	);
 };
