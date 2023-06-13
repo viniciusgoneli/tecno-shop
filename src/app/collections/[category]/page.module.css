@@ -1,0 +1,12 @@
+.wrapper {
+    margin-top: calc(var(--header-height) + 21px);
+    padding: 0 14px;
+}
+
+.productsSection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 20px;
+}
