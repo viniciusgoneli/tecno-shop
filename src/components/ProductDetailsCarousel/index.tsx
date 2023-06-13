@@ -3,8 +3,7 @@ import styles from "./ProductDetailsCarousel.module.css";
 import { ImageProps } from "@/types/imageProps";
 import Image from "next/image";
 import { useSwipeable } from "react-swipeable";
-import ArrowLeftIcon from "../../../public/icons/arrow-left.svg";
-import ArrowRightIcon from "../../../public/icons/arrow-right.svg";
+import ArrowIcon from "../SvgComponents/arrowIcon";
 
 interface ProductDetailsCarouselProps {
 	images: ImageProps[];
@@ -19,7 +18,7 @@ export default function ProductDetailsCarousel({
 
 	const renderImage = (it: ImageProps, index: number) => {
 		return (
-			<li key={index}>
+			<li data-testid={`image_${index}`} key={index}>
 				<Image
 					{...it}
 					fill
@@ -39,6 +38,7 @@ export default function ProductDetailsCarousel({
 
 		return (
 			<button
+				data-testid={`dot_${index}`}
 				key={index}
 				onClick={handleClick}
 				className={`${styles.dot} ${selectedClass}`}
@@ -47,13 +47,19 @@ export default function ProductDetailsCarousel({
 	};
 
 	const moveSliderToNextIndex = () => {
-		if (currIndex == images.length - 1) return;
+		if (currIndex == images.length - 1) {
+			setCurrIndex(0);
+			return;
+		}
 
 		setCurrIndex(currIndex + 1);
 	};
 
 	const moveSliderToPreviousIndex = () => {
-		if (currIndex == 0) return;
+		if (currIndex == 0) {
+			setCurrIndex(images.length - 1);
+			return;
+		}
 
 		setCurrIndex(currIndex - 1);
 	};
@@ -66,6 +72,7 @@ export default function ProductDetailsCarousel({
 	return (
 		<section {...handlers} className={styles.wrapper}>
 			<ul
+				data-testid="slider"
 				ref={sliderRef as any}
 				className={styles.slider}
 				style={{
@@ -81,24 +88,17 @@ export default function ProductDetailsCarousel({
 				{images.map(renderDot)}
 			</div>
 			<div className={styles.arrowsRow}>
-				<button onClick={moveSliderToPreviousIndex}>
-					<Image
-						width={20}
-						height={20}
-						src={ArrowLeftIcon}
-						alt="Arrow left icon"
-						style={{ fill: "#fff" }}
-					/>
+				<button
+					data-testid="previous-btn"
+					onClick={moveSliderToPreviousIndex}
+				>
+					<ArrowIcon dir="left" fill="#fff" />
 				</button>
-				<button onClick={moveSliderToNextIndex}>
-					<Image
-						color="#fff"
-						width={20}
-						height={20}
-						src={ArrowRightIcon}
-						alt="Arrow right  icon"
-						style={{ fill: "#fff" }}
-					/>
+				<button
+					data-testid="next-btn"
+					onClick={moveSliderToNextIndex}
+				>
+					<ArrowIcon dir="right" fill="#fff" />
 				</button>
 			</div>
 		</section>
