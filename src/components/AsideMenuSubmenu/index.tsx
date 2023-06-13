@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import styles from "./AsideMenuSubMenu.module.css";
 import { menuData } from "./menuData";
 import { AsideMenuItem } from "@/types/asideMenuItem";
-import ArrowIcon from "../../../public/icons/arrow-up.svg";
 import Image from "next/image";
 import { accountData } from "./accountData";
+import ArrowIcon, { ArrowDir } from "../SvgComponents/arrowIcon";
 
 export default function AsideMenuSubMenu() {
 	const [showSubItems, setShowSubItems] = useState(false);
-	const [arrowClass, setArrowClass] = useState(styles.arrowDown);
+	const [arrowDir, setArrowDir] = useState<ArrowDir>("down");
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 	const [tabData, setTabData] = useState<AsideMenuItem[]>(menuData);
 
@@ -20,8 +20,8 @@ export default function AsideMenuSubMenu() {
 
 			setShowSubItems(!showSubItems);
 
-			if (showSubItems) setArrowClass(styles.arrowDown);
-			else setArrowClass(styles.arrowUp);
+			if (showSubItems) setArrowDir("down");
+			else setArrowDir("up");
 		};
 
 		return (
@@ -32,12 +32,11 @@ export default function AsideMenuSubMenu() {
 				>
 					{item.title}
 					{hasSubItems ? (
-						<div className={arrowClass}>
-							<Image
-								src={ArrowIcon}
-								width={16}
-								height={16}
-								alt="Arrow icon"
+						<div className={styles.arrow}>
+							<ArrowIcon
+								width={12}
+								height={12}
+								dir={arrowDir}
 							/>
 						</div>
 					) : null}

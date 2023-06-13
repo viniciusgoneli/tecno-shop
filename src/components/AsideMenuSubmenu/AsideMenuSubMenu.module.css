@@ -51,12 +51,7 @@
     align-items: center;
 }
 
-.arrowUp {
-    margin-left: 10px;
-}
-
-.arrowDown {
-    transform: rotate(180deg);
+.arrow {
     margin-left: 10px;
 }
 
