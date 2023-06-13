@@ -1,0 +1,44 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    font-family: var(--font-mulish);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.3rem;
+    color: #000000;
+}
+
+.routesRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+
+}
+
+.routesRow a {
+    padding-right: 5px;
+    border-right: 1px solid #000;
+    margin-right: 5px;
+}
+
+.routesRow p {
+    color: #000000;
+    color: var(--dark-gray-color);
+}
+
+.sortBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sortBtn > p {
+    margin-right: 6px;
+    font-size: 1rem;
+}
