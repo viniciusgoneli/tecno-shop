@@ -1,13 +1,6 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 import React from "react";
 import HomeCard from "@/components/HomeCard";
-import ProductCard from "@/components/ProductCard";
-
-import Prod1Img from "../../public/images/product-1.jpg";
-import Prod2Img from "../../public/images/product-2.jpg";
-import Prod3Img from "../../public/images/product-3.jpg";
-import Prod4Img from "../../public/images/product-4.jpg";
 import { ImageProps } from "@/types/imageProps";
 import FeaturedSection from "@/components/FeaturedSection";
 
@@ -46,32 +39,29 @@ export default function Home() {
 			<section className={styles.homeSection}>
 				<HomeCard
 					carouselProps={{
-						height: 193,
-						images: firstCardImgs,
+						autoplay: true,
 					}}
-					width={291}
 					title="parks and recreation"
 					subtitle="shop new"
+					images={firstCardImgs}
 					style={{ marginBottom: 18 }}
 				/>
 				<HomeCard
 					carouselProps={{
-						height: 420,
-						images: secondCardImg,
+						autoplay: true,
 					}}
-					width={291}
 					title="learning in"
 					subtitle="shop dresses"
+					images={secondCardImg}
 					style={{ marginBottom: 18 }}
 				/>
 				<HomeCard
 					carouselProps={{
-						height: 420,
-						images: thirdCardImg,
+						autoplay: true,
 					}}
-					width={291}
 					title="all over velvet"
 					subtitle="shop back-in-stock"
+					images={thirdCardImg}
 					style={{ marginBottom: 18 }}
 				/>
 			</section>
