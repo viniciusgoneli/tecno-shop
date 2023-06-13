@@ -4,19 +4,16 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Carousel.module.css";
 import { ImageProps } from "@/types/imageProps";
+import { useSwipeable } from "react-swipeable";
 
 export interface CarouselProps {
 	images: ImageProps[];
-	width: number;
-	height: number;
 	autoplay?: boolean;
 	autoplayDuration?: number;
 }
 
-export default function Carousel({
+export default function CardCarousel({
 	images,
-	width,
-	height,
 	autoplay,
 	autoplayDuration = 1500,
 }: CarouselProps) {
@@ -26,7 +23,7 @@ export default function Carousel({
 
 	const renderDot = (index: number) => {
 		const handleClickDot = () => {
-			moveSliderToIndex(index);
+			setCurrentIndex(index);
 		};
 
 		return (
@@ -41,25 +38,34 @@ export default function Carousel({
 		);
 	};
 
-	const moveSliderToIndex = (index: number) => {
-		if (!sliderRef.current) return;
-
-		sliderRef.current.style.transform = `translateX(-${
-			index * width
-		}px)`;
-
-		setCurrentIndex(index);
-	};
-
 	const createSwipeTimeout = () => {
 		return setTimeout(() => {
-			if (currentIndex == images.length - 1) {
-				moveSliderToIndex(0);
-				return;
-			}
-			moveSliderToIndex(currentIndex + 1);
+			moveSliderToNextIndex();
 		}, autoplayDuration);
 	};
+
+	const moveSliderToNextIndex = () => {
+		if (currentIndex == images.length - 1) {
+			setCurrentIndex(0);
+			return;
+		}
+
+		setCurrentIndex(currentIndex + 1);
+	};
+
+	const moveSliderToPreviousIndex = () => {
+		if (currentIndex == 0) {
+			setCurrentIndex(images.length - 1);
+			return;
+		}
+
+		setCurrentIndex(currentIndex - 1);
+	};
+
+	const handlers = useSwipeable({
+		onSwipedLeft: moveSliderToNextIndex,
+		onSwipedRight: moveSliderToPreviousIndex,
+	});
 
 	useEffect(() => {
 		if (!autoplay || !images?.length) return;
@@ -70,25 +76,30 @@ export default function Carousel({
 	}, [currentIndex]);
 
 	return (
-		<div className={styles.wrapper} style={{ width }}>
-			<div
+		<div {...handlers} className={styles.wrapper}>
+			<ul
 				data-testid={"slider"}
 				ref={sliderRef as any}
 				className={styles.slider}
-				style={{ width: width * images.length }}
+				style={{
+					width: `${100 * images.length}%`,
+					transform: `translateX(-${
+						currentIndex * (100 / images.length)
+					}%)`,
+				}}
 			>
 				{images.map((i, index) => (
-					<Image
-						data-testid={`image_${index}`}
-						key={index}
-						src={i.src}
-						alt={i.alt}
-						width={width}
-						height={height}
-						draggable={false}
-					/>
+					<li key={index}>
+						<Image
+							data-testid={`image_${index}`}
+							src={i.src}
+							alt={i.alt}
+							fill
+							draggable={false}
+						/>
+					</li>
 				))}
-			</div>
+			</ul>
 			{images.length > 1 ? (
 				<div className={styles.dotsWrapper}>
 					{images?.map((i, index) => renderDot(index))}
