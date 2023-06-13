@@ -5,7 +5,6 @@ import Image from "next/image";
 import MenuIcon from "../../../public/svg/menu.svg";
 import SearchIcon from "../../../public/svg/search.svg";
 import BagIcon from "../../../public/svg/bag.svg";
-const MenuIcon2 = require("../../../public/svg/menu.svg");
 
 const ICON_SIZE = 24;
 
@@ -28,7 +27,7 @@ export default function Header({ onClickMenuButton }: HeaderProps) {
 						alt="Menu icon"
 					/>
 				</button>
-				<h1>Participle+</h1>
+				<h1>TecnoShop</h1>
 				<div className={styles.row}>
 					<button>
 						<Image

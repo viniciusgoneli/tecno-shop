@@ -11,7 +11,7 @@
     padding-bottom: 5px;
     margin-bottom: 21px;
     
-    font-family: var(--font-mulish);
+    font-family: var(--font-roboto-regular);
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -34,7 +34,7 @@
 
 .footer button > span {
 
-    font-family: var(--font-mulish);
+    font-family: var(--font-roboto-regular);
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
@@ -72,7 +72,7 @@
 }
 
 .info li > a {
-    font-family: var(--font-mulish);
+    font-family: var(--font-roboto-regular);
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
