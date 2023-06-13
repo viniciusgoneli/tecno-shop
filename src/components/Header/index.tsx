@@ -2,9 +2,10 @@ import React from "react";
 import "../../styles/globals.css";
 import styles from "./Header.module.css";
 import Image from "next/image";
-import MenuIcon from "../../../public/icons/menu.svg";
-import SearchIcon from "../../../public/icons/search.svg";
-import BagIcon from "../../../public/icons/bag.svg";
+import MenuIcon from "../../../public/svg/menu.svg";
+import SearchIcon from "../../../public/svg/search.svg";
+import BagIcon from "../../../public/svg/bag.svg";
+const MenuIcon2 = require("../../../public/svg/menu.svg");
 
 const ICON_SIZE = 24;
 

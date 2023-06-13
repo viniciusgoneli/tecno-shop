@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import SizesOptions from "@/components/SizesOptions";
-import BoxIcon from "../../../../public/icons/box.svg";
+import BoxIcon from "../../../../public/svg/box.svg";
 import Button from "@/components/Button";
 import FeaturedSection from "@/components/FeaturedSection";
 import ProductDetailsCarousel from "@/components/ProductDetailsCarousel";
