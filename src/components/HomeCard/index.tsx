@@ -1,21 +1,23 @@
 import Image from "next/image";
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, Suspense } from "react";
 import styles from "./HomeCard.module.css";
 import Carousel, { CarouselProps } from "../Carousel";
-import { ImageProps } from "@/types/imageProps";
 import Link from "next/link";
+import { ImageSrcProps } from "@/types/imageProps";
+import LazyImage from "../LazyImage";
+import Button from "../Button";
 
 interface HomeCardProps {
-	images: ImageProps[];
+	imagePromise: Promise<ImageSrcProps>;
 	title: string;
 	subtitle: string;
 	style?: CSSProperties;
 	carouselProps?: Omit<CarouselProps, "images">;
 }
 
-export default function HomeCard({
+export default async function HomeCard({
 	carouselProps,
-	images,
+	imagePromise,
 	title,
 	subtitle,
 	style,
@@ -26,18 +28,20 @@ export default function HomeCard({
 			style={style}
 			href={"/collections/clothing"}
 		>
-			{images?.length > 1 ? (
-				<Carousel {...carouselProps} images={images} />
-			) : (
-				<Image
-					src={images[0].src}
-					alt={images[0].alt}
-					width={291}
-					height={420}
-				/>
-			)}
-			<h4>{title}</h4>
-			<p>{subtitle}</p>
+			<div className={styles.imgWrapper}>
+				<Suspense fallback={<p></p>}>
+					<LazyImage
+						className={styles.img}
+						imagePromise={imagePromise}
+						fill
+					/>
+				</Suspense>
+			</div>
+			<div className={styles.content}>
+				<p>R$ 299,00</p>
+				<h4>{title}</h4>
+				<Button label={"Buy"} />
+			</div>
 		</Link>
 	);
 }
