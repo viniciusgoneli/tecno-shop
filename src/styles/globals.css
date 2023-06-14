@@ -45,9 +45,9 @@
 
   --gray-color: #F7F7F7;
   --mid-gray-color: #828282;
-  --dark-gray-color: #5E5E5E;
+  --dark-gray-color: #414141;
 
-  --header-height: 104px;
+  --header-height: 70px;
 }
 
 * {
