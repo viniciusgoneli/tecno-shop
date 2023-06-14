@@ -1,49 +1,48 @@
 import styles from "./page.module.css";
-import React from "react";
+import React, { Suspense } from "react";
 import HomeCard from "@/components/HomeCard";
-import { ImageProps } from "@/types/imageProps";
+import { ImageRefProps } from "@/types/imageProps";
 import FeaturedSection from "@/components/FeaturedSection";
+import { ref } from "firebase/storage";
+import { convertImgRefToImgSrc, storage } from "@/services/firebase";
 
-const firstCardImgs = [
-	{
-		src: "/images/woman-with-white-dress.jpg",
+const getFirstCardImages = async () => {
+	return await convertImgRefToImgSrc({
+		ref: ref(storage, "headsets/test1/1.jpg"),
 		alt: "Woman wearing a white dress",
-	},
-	{
-		src: "/images/woman-with-white-dress.jpg",
-		alt: "Woman wearing a white dress",
-	},
-	{
-		src: "/images/woman-with-white-dress.jpg",
-		alt: "Woman wearing a white dress",
-	},
-] satisfies ImageProps[];
+	});
+};
 
-const secondCardImg = [
-	{
-		src: "/images/woman-with-red-dress.jpg",
+const getSecondCardImage = async () => {
+	return await convertImgRefToImgSrc({
+		ref: ref(storage, "headsets/test1/4.jpg"),
 		alt: "Woman wearing a red dress",
-	},
-] satisfies ImageProps[];
+	});
+};
 
-const thirdCardImg = [
-	{
-		src: "/images/woman-with-blue-dress.jpg",
+const getThirdCardImage = async () => {
+	return await convertImgRefToImgSrc({
+		ref: ref(storage, "headsets/test1/5.jpg"),
 		alt: "Woman wearing a blue dress",
-	},
-] satisfies ImageProps[];
+	});
+};
 
-export default function Home() {
+export default async function Home() {
+	const firstCardImgsPromise = getFirstCardImages();
+	const secondCardImgPromise = getSecondCardImage();
+	const thirdCardImgPromise = getThirdCardImage();
+
 	return (
 		<main className={styles.main}>
-			<section className={styles.homeSection}>
+			<h2 className={styles.title}>DESTAQUES</h2>
+			<section className={styles.topSection}>
 				<HomeCard
 					carouselProps={{
 						autoplay: true,
 					}}
 					title="parks and recreation"
 					subtitle="shop new"
-					images={firstCardImgs}
+					imagePromise={firstCardImgsPromise}
 					style={{ marginBottom: 18 }}
 				/>
 				<HomeCard
@@ -52,7 +51,7 @@ export default function Home() {
 					}}
 					title="learning in"
 					subtitle="shop dresses"
-					images={secondCardImg}
+					imagePromise={secondCardImgPromise}
 					style={{ marginBottom: 18 }}
 				/>
 				<HomeCard
@@ -61,11 +60,10 @@ export default function Home() {
 					}}
 					title="all over velvet"
 					subtitle="shop back-in-stock"
-					images={thirdCardImg}
+					imagePromise={thirdCardImgPromise}
 					style={{ marginBottom: 18 }}
 				/>
 			</section>
-			<FeaturedSection style={{ marginBottom: 36 }} />
 		</main>
 	);
 }
