@@ -5,8 +5,9 @@ import Image from "next/image";
 import MenuIcon from "../../../public/svg/menu.svg";
 import SearchIcon from "../../../public/svg/search.svg";
 import BagIcon from "../../../public/svg/bag.svg";
+import MouseIcon from "../SvgComponents/mouseIcon";
 
-const ICON_SIZE = 24;
+const ICON_SIZE = 22;
 
 interface HeaderProps {
 	onClickMenuButton: () => void;
@@ -15,19 +16,16 @@ interface HeaderProps {
 export default function Header({ onClickMenuButton }: HeaderProps) {
 	return (
 		<header className={styles.wrapper}>
-			<section className={styles.banner}>
-				<p>Free Shipping On All U.S. Orders</p>
-			</section>
 			<section className={styles.main}>
-				<button data-testid="menu" onClick={onClickMenuButton}>
-					<Image
-						src={MenuIcon}
-						width={ICON_SIZE}
-						height={ICON_SIZE}
-						alt="Menu icon"
+				<h1>
+					TecnoShop{" "}
+					<MouseIcon
+						style={{
+							display: "inline-block",
+							transform: "rotate(-45deg)",
+						}}
 					/>
-				</button>
-				<h1>TecnoShop</h1>
+				</h1>
 				<div className={styles.row}>
 					<button>
 						<Image
@@ -43,6 +41,17 @@ export default function Header({ onClickMenuButton }: HeaderProps) {
 							width={ICON_SIZE}
 							height={ICON_SIZE}
 							alt="Bag icon"
+						/>
+					</button>
+					<button
+						data-testid="menu"
+						onClick={onClickMenuButton}
+					>
+						<Image
+							src={MenuIcon}
+							width={ICON_SIZE}
+							height={ICON_SIZE}
+							alt="Menu icon"
 						/>
 					</button>
 				</div>
