@@ -1,27 +1,40 @@
 // Import the functions you need from the SDKs you need
-import { ImageRefProps, ImageSrcProps } from "@/types/imageProps";
+import { ImageRefProps, ImageSrcProps } from "@/models/imageProps";
 import { initializeApp } from "firebase/app";
-import { StorageReference, getDownloadURL, getStorage } from "firebase/storage";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import {
+	connectStorageEmulator,
+	getDownloadURL,
+	getStorage,
+} from "firebase/storage";
+import { connectDatabaseEmulator, getDatabase } from "firebase/database";
+import config from "../../firebase.json";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID
+const firebaseCredentials = {
+	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+	measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-export const firebase = initializeApp(firebaseConfig);
-export const storage = getStorage(firebase);
-export const convertImgRefToImgSrc = async (imgRef: ImageRefProps) => {
-    const url = await getDownloadURL(imgRef.ref);
+const firebase = initializeApp(firebaseCredentials);
 
-    return { alt: imgRef.alt, src: url };
-}
+export const getFirebaseStorage = () => {
+	const stg = getStorage(firebase);
+
+	const port = config.emulators.storage.port;
+	connectStorageEmulator(stg, "localhost", port);
+
+	return stg;
+};
+
+export const getFirebaseDatabase = () => {
+	const db = getDatabase(firebase);
+
+	const port = config.emulators.database.port;
+	connectDatabaseEmulator(db, "localhost", port);
+
+	return db;
+};

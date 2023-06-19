@@ -12,3 +12,8 @@ namespace tecnoshop-4aa05, but the emulator is configured for tecnoshop-4aa05-de
 opt-out of single project mode add/set the singleProjectMode: false property in 
 the firebase.json emulators config. 
 13:23:16.703 [NamespaceSystem-akka.actor.default-dispatcher-8] INFO com.firebase.core.namespace.NamespaceActor - tecnoshop-4aa05 successfully activated FBKV (SurveyIdle(0)) wait: 2ms, init: 0ms
+13:04:31.710 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+13:04:31.724 [NamespaceSystem-akka.actor.default-dispatcher-784] INFO com.firebase.core.namespace.Terminator$Terminator - 2 actors left to terminate: tecnoshop-4aa05, tecnoshop-4aa05-default-rtdb
+13:04:31.728 [NamespaceSystem-akka.actor.default-dispatcher-781] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for tecnoshop-4aa05
+13:04:31.728 [NamespaceSystem-akka.actor.default-dispatcher-784] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for tecnoshop-4aa05-default-rtdb
+13:04:31.731 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
