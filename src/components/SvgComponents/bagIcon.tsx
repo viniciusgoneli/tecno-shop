@@ -1,5 +1,5 @@
 import React from "react";
-import { IconProps } from "@/types/svgProps";
+import { IconProps } from "@/models/svgProps";
 
 export default function BagIcon({
 	width = 24,

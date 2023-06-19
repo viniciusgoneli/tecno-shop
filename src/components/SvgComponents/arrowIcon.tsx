@@ -1,5 +1,5 @@
 import React, { CSSProperties, useMemo } from "react";
-import { IconProps } from "@/types/svgProps";
+import { IconProps } from "@/models/svgProps";
 
 export type ArrowDir = "up" | "right" | "down" | "left";
 

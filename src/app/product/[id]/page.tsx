@@ -6,7 +6,7 @@ import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import SizesOptions from "@/components/SizesOptions";
 import BoxIcon from "../../../../public/svg/box.svg";
-import Button from "@/components/Button";
+import Button from "@/components/BlackButton";
 import FeaturedSection from "@/components/FeaturedSection";
 import ProductDetailsCarousel from "@/components/ProductDetailsCarousel";
 

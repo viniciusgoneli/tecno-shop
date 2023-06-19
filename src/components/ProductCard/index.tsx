@@ -2,13 +2,13 @@ import Image from "next/image";
 import React, { CSSProperties } from "react";
 import styles from "./ProductCard.module.css";
 import ImagesCarousel, { CarouselProps } from "../Carousel";
-import { ImageProps } from "@/types/imageProps";
+import { ImageSrcProps } from "@/models/imageProps";
 import Link from "next/link";
 
 export interface ProductCardProps {
 	title: string;
 	price: number;
-	imgProps: ImageProps;
+	imgProps: ImageSrcProps;
 	discountPercent?: number;
 	style?: CSSProperties;
 }

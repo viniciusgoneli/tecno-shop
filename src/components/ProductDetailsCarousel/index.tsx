@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./ProductDetailsCarousel.module.css";
-import { ImageProps } from "@/types/imageProps";
+import { ImageSrcProps } from "@/models/imageProps";
 import Image from "next/image";
 import { useSwipeable } from "react-swipeable";
 import ArrowIcon from "../SvgComponents/arrowIcon";
 
 interface ProductDetailsCarouselProps {
-	images: ImageProps[];
+	images: ImageSrcProps[];
 }
 
 export default function ProductDetailsCarousel({
@@ -16,7 +16,7 @@ export default function ProductDetailsCarousel({
 
 	const sliderRef = useRef<HTMLUListElement>();
 
-	const renderImage = (it: ImageProps, index: number) => {
+	const renderImage = (it: ImageSrcProps, index: number) => {
 		return (
 			<li data-testid={`image_${index}`} key={index}>
 				<Image
@@ -29,7 +29,7 @@ export default function ProductDetailsCarousel({
 		);
 	};
 
-	const renderDot = (it: ImageProps, index: number) => {
+	const renderDot = (it: ImageSrcProps, index: number) => {
 		const handleClick = () => {
 			setCurrIndex(index);
 		};

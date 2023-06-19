@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./AsideMenuSubMenu.module.css";
 import { menuData } from "./menuData";
-import { AsideMenuItem } from "@/types/asideMenuItem";
+import { AsideMenuItem } from "@/models/asideMenuItem";
 import Image from "next/image";
 import { accountData } from "./accountData";
 import ArrowIcon, { ArrowDir } from "../SvgComponents/arrowIcon";

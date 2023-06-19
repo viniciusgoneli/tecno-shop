@@ -6,6 +6,6 @@ export interface ImageSrcProps {
 }
 
 export interface ImageRefProps {
-	ref: StorageReference;
+	storageRef: StorageReference;
 	alt: string;
 }
