@@ -7,7 +7,7 @@ import {
 	getStorage,
 } from "firebase/storage";
 import { connectDatabaseEmulator, getDatabase } from "firebase/database";
-import config from "../../firebase.json";
+import config from "../../../firebase.json";
 
 const firebaseCredentials = {
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -24,8 +24,8 @@ const firebase = initializeApp(firebaseCredentials);
 export const getFirebaseStorage = () => {
 	const stg = getStorage(firebase);
 
-	const port = config.emulators.storage.port;
-	connectStorageEmulator(stg, "localhost", port);
+	// const port = config.emulators.storage.port;
+	// connectStorageEmulator(stg, "localhost", port);
 
 	return stg;
 };
@@ -33,8 +33,8 @@ export const getFirebaseStorage = () => {
 export const getFirebaseDatabase = () => {
 	const db = getDatabase(firebase);
 
-	const port = config.emulators.database.port;
-	connectDatabaseEmulator(db, "localhost", port);
+	// const port = config.emulators.database.port;
+	// connectDatabaseEmulator(db, "localhost", port);
 
 	return db;
 };
