@@ -1,5 +1,5 @@
 import HomeCard from "@/components/HomeCard";
-import { ImageProps } from "@/types/imageProps";
+import { ImageSrcProps } from "@/models/imageProps";
 import { render, screen } from "@testing-library/react";
 
 const mockedImages = [
@@ -15,7 +15,7 @@ const mockedImages = [
 		src: "/images/woman-with-red-dress.jpg",
 		alt: "Woman wearing a red dress.",
 	},
-] satisfies ImageProps[];
+] satisfies ImageSrcProps[];
 
 const mockedWidth = 293;
 const mockedHeight = 193;

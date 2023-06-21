@@ -2,14 +2,14 @@ import { render, screen } from "@testing-library/react";
 import ProductCard, {
 	ProductCardProps,
 } from "../../src/components/ProductCard";
-import { ImageProps } from "@/types/imageProps";
+import { ImageSrcProps } from "@/models/imageProps";
 
 const mockedTitle = "Dress";
 const mockedPrice = 299;
 const mockedImageProps = {
 	src: "/images/woman-with-red-dress.jpg",
 	alt: "Woman wearing a red dress.",
-} satisfies ImageProps;
+} satisfies ImageSrcProps;
 
 const getCompProps = () =>
 	({

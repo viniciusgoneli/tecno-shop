@@ -1,5 +1,5 @@
 import Carousel from "@/components/Carousel";
-import { ImageProps } from "@/types/imageProps";
+import { ImageSrcProps } from "@/models/imageProps";
 import {
 	act,
 	fireEvent,
@@ -21,7 +21,7 @@ const mockedImages = [
 		src: "/images/woman-with-red-dress.jpg",
 		alt: "Woman wearing a red dress.",
 	},
-] satisfies ImageProps[];
+] satisfies ImageSrcProps[];
 
 const renderComponent = () => {
 	render(<Carousel images={mockedImages} />);
