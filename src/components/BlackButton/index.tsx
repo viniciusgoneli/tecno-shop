@@ -1,3 +1,5 @@
+"use client";
+
 import React, { DetailedHTMLProps } from "react";
 import styles from "./Button.module.css";
 
@@ -9,7 +11,7 @@ interface ButtonProps
 	label: string;
 }
 
-export default function Button(props: ButtonProps) {
+export default function BlackButton(props: ButtonProps) {
 	return (
 		<button {...props} className={styles.wrapper}>
 			<strong>{props.label}</strong>
