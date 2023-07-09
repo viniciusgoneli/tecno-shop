@@ -1,9 +1,9 @@
-import AsideMenuSubMenu from "@/components/AsideMenuSubmenu";
-import { accountData } from "@/components/AsideMenuSubmenu/accountData";
-import { menuData } from "@/components/AsideMenuSubmenu/menuData";
+import AsideMenuSubMenu from "@/components/AsideMenuSubMenu";
+import { accountData } from "@/components/AsideMenuContent/accountData";
+import { menuData } from "@/components/AsideMenu/menuData";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-describe("AsideSubMenu", () => {
+describe("AsideContent", () => {
 	it("should 'Menu' tab to be in the document", () => {
 		render(<AsideMenuSubMenu />);
 
