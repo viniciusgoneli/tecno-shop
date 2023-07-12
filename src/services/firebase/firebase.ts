@@ -7,6 +7,7 @@ import {
 	getStorage,
 } from "firebase/storage";
 import { connectDatabaseEmulator, getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
 import config from "../../../firebase.json";
 
 const firebaseCredentials = {
@@ -32,6 +33,15 @@ export const getFirebaseStorage = () => {
 
 export const getFirebaseDatabase = () => {
 	const db = getDatabase(firebase);
+
+	// const port = config.emulators.database.port;
+	// connectDatabaseEmulator(db, "localhost", port);
+
+	return db;
+};
+
+export const getFirestoreDatabase = () => {
+	const db = getFirestore(firebase);
 
 	// const port = config.emulators.database.port;
 	// connectDatabaseEmulator(db, "localhost", port);
