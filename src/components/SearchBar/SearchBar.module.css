@@ -1,0 +1,24 @@
+.wrapper {
+    width: 100%;
+    border-bottom: 1px solid #000;
+    display: flex;
+}
+
+.wrapper input {
+    flex: 1;
+    font-family: var(--font-roboto-regular);
+    color: #000;
+    font-size: 1.4rem;
+    outline: none;
+}
+
+.wrapper input::placeholder {
+    font-family: var(--font-roboto-regular);
+}
+
+.wrapper button {
+    position: relative;
+    width: 3.4rem;
+    height: 3.4rem;
+    cursor: pointer;
+}
