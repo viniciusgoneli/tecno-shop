@@ -1,0 +1,77 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.imgWrapper {
+    position: relative;
+    width: 12rem;
+    height: 12rem;
+}
+
+.content {
+    margin-left: 1.3rem;
+    flex: 1;
+}
+
+.content a {
+    cursor: pointer;
+}
+
+.content h3 {
+    color: #000;
+    font-family: var(--font-poppins-regular);
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.5rem;
+    margin-bottom: 0.7rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1; 
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+
+.content p {
+    color: #9B9B9B;
+    font-family: var(--font-roboto-regular);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.7rem;
+    margin-bottom: 0.5rem;
+}
+
+.btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1rem;
+    justify-content: space-between;
+}
+
+.btns button {
+    cursor: pointer;
+}
+
+.qttBtns {
+    display: flex;
+    flex-direction: row;
+    gap: 0.7rem;
+}
+
+.qttBtns > button {
+    width: 2rem;
+    height: 2rem;
+    background-color: #000;
+}
+
+.qttBtns span {
+    font-size: 1.5rem;
+    color: #fff;
+    font-family: var(--font-roboto-regular);
+}
