@@ -6,7 +6,8 @@
 .productsSection {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 1.4rem;
     margin-top: 20px;
 }
