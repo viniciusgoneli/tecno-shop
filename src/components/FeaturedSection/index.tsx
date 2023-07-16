@@ -1,53 +1,55 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import styles from "./FeaturedSection.module.css";
-import ProductCard from "../ProductCard";
+import HomeCard from "../HomeCard";
+import ItemsSlider from "../ItemsSlider";
+import { getFirestoreDatabase } from "@/services/firebase/firebase";
+import {
+	collection,
+	getDoc,
+	getDocs,
+	getFirestore,
+	doc,
+	orderBy,
+	limit,
+	query,
+	DocumentData,
+} from "firebase/firestore";
+import { Product } from "@/models/product";
+
+interface HomeCardRenderItem {
+	item: any;
+	index: number;
+}
 
 interface FeaturedSectionProps {
 	style?: CSSProperties;
 }
 
-export default function FeaturedSection({ style }: FeaturedSectionProps) {
+const db = getFirestoreDatabase();
+
+const getProducts = async () => {
+	const prodsCollectionRef = collection(db, "products");
+	const prodsDocs = (await getDocs(prodsCollectionRef))?.docs;
+
+	const products = prodsDocs.map((doc) => ({
+		id: doc.id,
+		...doc.data(),
+	}));
+
+	return products;
+};
+
+export default async function FeaturedSection({ style }: FeaturedSectionProps) {
+	const products = (await getProducts()) as Product[];
+
 	return (
 		<section style={style} className={styles.wrapper}>
-			<h3>Featured</h3>
-			<div className={styles.cardsWrapper}>
-				<ProductCard
-					title={"Flowers on Sleeves Dress"}
-					price={155}
-					imgProps={{
-						src: "/images/product-1.jpg",
-						alt: "Prod 1",
-					}}
-					style={{ marginBottom: 20 }}
-				/>
-				<ProductCard
-					title={"Cat-Eye Resin Sunglasses in Clear"}
-					price={45}
-					imgProps={{
-						src: "/images/product-2.jpg",
-						alt: "Prod 2",
-					}}
-					style={{ marginBottom: 20 }}
-				/>
-				<ProductCard
-					title={"Flowers on Sleeves Dress"}
-					price={115}
-					imgProps={{
-						src: "/images/product-3.jpg",
-						alt: "Prod 3",
-					}}
-					style={{ marginBottom: 20 }}
-				/>
-				<ProductCard
-					title={"Cat-Eye Resin Sunglasses in Clear"}
-					price={78}
-					discountPercent={0.5}
-					imgProps={{
-						src: "/images/product-4.jpg",
-						alt: "Prod 4",
-					}}
-				/>
-			</div>
+			<h2 className={styles.title}>Destaques</h2>
+			<ItemsSlider itemOffset={300}>
+				{products?.map((p) => (
+					<HomeCard key={p.id} item={p} />
+				))}
+			</ItemsSlider>
 		</section>
 	);
 }
