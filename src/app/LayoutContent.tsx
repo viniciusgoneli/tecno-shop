@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useContext, useEffect, useMemo, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import "../styles/globals.css";
 import Header from "../components/Header";
-import AsideMenu from "@/components/AsideMenu";
+import AsideMenu, { AsideMenuRef } from "@/components/AsideMenu";
 import HeaderWrapper from "@/components/HeaderWrapper";
 import Footer from "@/components/Footer";
 import Head from "next/head";
@@ -14,29 +14,114 @@ import ScrollProvider, {
 import CookiesConsent, { CookiesModalRef } from "@/components/CookiesConsent";
 import Cookies from "js-cookie";
 import { cookiePermissionKey } from "@/utils/constants";
+import NotificationsContextProvider from "@/contexts/NotificationsContextProvider";
+import SearchWindow, { SearchWindowRef } from "@/components/SearchWindow";
+import CartModal, { CartModalRef } from "@/components/CartModal";
+import { ProductCategory } from "@/models/product";
+import { MenuItem } from "@/models/asideMenuItem";
+import { getFirestoreDatabase } from "@/services/firebase/firebase";
+import { collection, getDocs } from "firebase/firestore";
+
+const db = getFirestoreDatabase();
+
+const getMenuItems = async () => {
+	const ref = collection(db, "categories");
+	const categoriesDocs = (await getDocs(ref))?.docs;
+	const categories = categoriesDocs.map((doc) => ({
+		id: doc.id,
+		...doc.data(),
+	})) as ProductCategory[];
+
+	const mainCategories = categories.filter(
+		(c) => c.subcategories.length && !c.parent
+	);
+
+	const menuItems = mapCategoriesToMenuItems(mainCategories, categories);
+
+	return menuItems;
+};
+
+const mapCategoriesToMenuItems = (
+	targetCategories: ProductCategory[],
+	allCategories: ProductCategory[]
+): MenuItem[] => {
+	return targetCategories.map((tc) => {
+		const subCategories = allCategories.filter((cat) => {
+			if (!tc.subcategories.length) return false;
+
+			return !!tc.subcategories.find((sc) => sc === cat.handleName);
+		});
+
+		const path = getCategoryPath(tc, allCategories);
+
+		const href = `/categories/${path}`;
+
+		return {
+			id: tc.id,
+			title: tc.name,
+			href,
+			subItems: mapCategoriesToMenuItems(
+				subCategories,
+				allCategories
+			),
+			parentId: tc?.parent,
+		} as MenuItem;
+	});
+};
+
+const getCategoryPath = (currCategory: any, allCategories: any[]) => {
+	const routes = [];
+
+	let parent = allCategories.find((c) => c?.id == currCategory?.parent);
+
+	routes.push(currCategory.id);
+	while (parent) {
+		routes.push(parent.id);
+		parent = allCategories.find((c) => c?.id == parent?.parent);
+	}
+
+	return routes.reverse().join("/");
+};
 
 export default function LayoutContent({
 	children,
+	categories,
 }: {
 	children: React.ReactNode;
+	categories: ProductCategory[];
 }) {
 	const { scrollEnabled } = useContext(ScrollContext);
 
-	const cookiesModalRef = useRef<CookiesModalRef>();
+	const menuRef = useRef<AsideMenuRef>();
+	const searchWindowRef = useRef<SearchWindowRef>();
+	const cartModalRef = useRef<CartModalRef>();
+
+	const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
 	const overflowY = useMemo(
 		() => (scrollEnabled ? "auto" : "hidden"),
 		[scrollEnabled]
 	);
 
-	const checkCookiesPermission = () => {
-		const status = Cookies.get(cookiePermissionKey);
-		if (status) return;
-		cookiesModalRef.current?.open();
+	const handleClickMenuButton = () => {
+		menuRef.current?.open();
+	};
+
+	const handleClickSearchButton = () => {
+		searchWindowRef.current?.open();
+	};
+
+	const handleClickCartButton = () => {
+		cartModalRef.current?.open();
+	};
+
+	const loadItems = async () => {
+		const items = await getMenuItems();
+		setMenuItems(items);
 	};
 
 	useEffect(() => {
-		checkCookiesPermission();
+		loadItems();
 	}, []);
 
 	return (
@@ -49,10 +134,25 @@ export default function LayoutContent({
 				/>
 			</Head>
 			<body>
-				<HeaderWrapper />
-				{children}
-				<Footer />
-				<CookiesConsent ref={cookiesModalRef} />
+				<NotificationsContextProvider>
+					{menuItems ? (
+						<AsideMenu
+							items={menuItems}
+							ref={menuRef}
+						/>
+					) : null}
+					<SearchWindow ref={searchWindowRef} />
+					<CartModal ref={cartModalRef} />
+					<Header
+						onClickMenuButton={handleClickMenuButton}
+						onClickSearchButton={
+							handleClickSearchButton
+						}
+						onClickCartButton={handleClickCartButton}
+					/>
+					{children}
+					<Footer />
+				</NotificationsContextProvider>
 			</body>
 		</html>
 	);
