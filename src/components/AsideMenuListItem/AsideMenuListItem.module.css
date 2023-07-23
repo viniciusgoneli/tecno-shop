@@ -1,0 +1,28 @@
+.linkContent {
+    cursor: pointer;
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.linkContent h3 {
+    font-family: var(--font-roboto-regular);
+    font-size: 1.6rem;
+    line-height: 46px;
+    font-weight: 400;
+    color: #000;
+}
+
+.arrow {
+    margin-left: 1rem;
+}
+
+.btn::selection {
+    color: none;
+    background: none;
+}
+/* For Mozilla Firefox */
+.btn::-moz-selection {
+    color: none;
+    background: none;
+}
