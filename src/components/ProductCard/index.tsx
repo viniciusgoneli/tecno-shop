@@ -1,64 +1,54 @@
 import Image from "next/image";
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, Suspense } from "react";
 import styles from "./ProductCard.module.css";
 import ImagesCarousel, { CarouselProps } from "../Carousel";
-import { ImageSrcProps } from "@/models/imageProps";
+import { FileNameImageProps, ImageSrcProps } from "@/models/imageProps";
 import Link from "next/link";
+import { getFirebaseStorage } from "@/services/firebase/firebase";
+import getFirebaseStorageRef from "@/services/firebase/getFirebaseStorageRef";
+import LazyImage from "../LazyImage";
+import BlackButton from "../BlackButton";
+import AddToCartButton from "../AddToCartButton/indext";
+import { Product } from "@/models/product";
+import { formatPrice } from "@/utils/functions";
 
 export interface ProductCardProps {
-	title: string;
-	price: number;
-	imgProps: ImageSrcProps;
-	discountPercent?: number;
+	item: Product;
 	style?: CSSProperties;
 }
 
-export default function ProductCard({
-	title,
-	price,
-	imgProps,
-	discountPercent,
-	style,
-}: ProductCardProps) {
-	return (
-		<div className={styles.wrapper} style={{ ...style, width: 140 }}>
-			<Link href={"/product/1"}>
-				<div className={styles.imgWrapper}>
-					<Image
-						data-testid="prod-card-img"
-						{...imgProps}
-						width={140}
-						height={179}
-					/>
-				</div>
-				<div className={styles.info}>
-					<h5>{title}</h5>
-					<div className={styles.priceWrapper}>
-						{discountPercent ? (
-							<p
-								className={
-									styles.priceWithDiscount
-								}
-							>
-								$
-								{(
-									discountPercent * price
-								).toFixed(2)}
-							</p>
-						) : (
-							<p className={styles.price}>
-								${price.toFixed(2)}
-							</p>
-						)}
+export default function ProductCard({ item, style }: ProductCardProps) {
+	const PRODUCT_PATH = `/product/${item.id}`;
 
-						{discountPercent ? (
-							<p className={styles.oldPrice}>
-								${price.toFixed(2)}
-							</p>
-						) : null}
-					</div>
+	return (
+		<div className={styles.wrapper} style={{ ...style }}>
+			<Link href={PRODUCT_PATH}>
+				<div className={styles.imgWrapper}>
+					<Image {...item.images[0]} fill />
 				</div>
 			</Link>
+			<div className={styles.info}>
+				<Link href={PRODUCT_PATH}>
+					<h5>{item.name}</h5>
+				</Link>
+
+				<div className={styles.priceWrapper}>
+					{!item?.promotionalPrice ? (
+						<p className={styles.oldPrice}>
+							{formatPrice(item?.price * 0.85)}
+						</p>
+					) : null}
+
+					<p className={styles.price}>
+						{formatPrice(item?.price)}
+					</p>
+				</div>
+				<AddToCartButton
+					label="+ Carrinho"
+					productJson={JSON.stringify(item)}
+					quantity={1}
+				/>
+			</div>
 		</div>
 	);
 }
