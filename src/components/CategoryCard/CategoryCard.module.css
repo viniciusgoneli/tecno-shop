@@ -1,0 +1,26 @@
+.wrapper {
+    flex: 1;
+    height: 200px;
+    border-radius: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+    box-shadow: 0 0 0.5rem #000;
+}
+
+.imgWrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+}
+
+.wrapper h3 {
+    font-size: 1.8rem;
+    font-family: var(--font-poppins-regular);
+    color: #000;
+    text-align: center;
+    font-weight: 500;
+}
