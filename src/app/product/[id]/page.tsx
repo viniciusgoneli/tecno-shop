@@ -1,6 +1,4 @@
-"use client";
-
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./page.module.css";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
@@ -9,57 +7,96 @@ import BoxIcon from "../../../../public/svg/box.svg";
 import Button from "@/components/BlackButton";
 import FeaturedSection from "@/components/FeaturedSection";
 import ProductDetailsCarousel from "@/components/ProductDetailsCarousel";
+import { FileNameImageProps, ImageSrcProps } from "@/models/imageProps";
+import {
+	child,
+	equalTo,
+	get,
+	onValue,
+	orderByChild,
+	orderByKey,
+} from "firebase/database";
+import {
+	getFirebaseDatabase,
+	getFirebaseStorage,
+	getFirestoreDatabase,
+} from "@/services/firebase/firebase";
+import getFirebaseDatabaseRef from "@/services/firebase/getFirebaseDatabaseRef";
+import { convertJsonToArray, formatPrice } from "@/utils/functions";
+import getFirebaseStorageRef from "@/services/firebase/getFirebaseStorageRef";
+import { getDownloadURL } from "firebase/storage";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+import {
+	collection,
+	doc,
+	getDoc,
+	getDocs,
+	orderBy,
+	query,
+	startAt,
+	where,
+} from "firebase/firestore";
+import AddToCartButton from "@/components/AddToCartButton/indext";
+import { Product, ProductImage } from "@/models/product";
 
-export default function ProductPage() {
-	const params = useParams();
+const db = getFirestoreDatabase();
+
+interface ProductPageProps {
+	params: Params;
+}
+
+const getProduct = async (prodId: string) => {
+	const prodRef = doc(db, `products`, prodId);
+
+	const prodDoc = await getDoc(prodRef);
+
+	const prod = prodDoc.data() as Product;
+	prod.id = prodDoc.id;
+
+	return prod;
+};
+
+const getProductImages = async (prodId: string) => {
+	const prodImgsRef = collection(db, `product-images`);
+
+	const q = query(
+		prodImgsRef,
+		where("productId", "==", prodId),
+		orderBy("position"),
+		startAt(1)
+	);
+	const imgsDocs = (await getDocs(q))?.docs;
+
+	const images = imgsDocs.map((doc) => {
+		return doc.data();
+	}) as ProductImage[];
+
+	return images;
+};
+
+export default async function ProductPage({ params }: ProductPageProps) {
+	const prodPromise = getProduct(params?.id);
+	const prodImagesPromise = getProductImages(params?.id);
+
+	const formatDescription = (description: string) => {
+		const regex = /(?<=:)([^:]+)/g;
+		const matches = description.match(regex);
+
+		return matches?.toString();
+	};
+
+	const [prod, images] = await Promise.all([
+		prodPromise,
+		prodImagesPromise,
+	]);
 
 	return (
 		<main className={styles.main}>
-			<ProductDetailsCarousel
-				images={[
-					{
-						src: "/images/woman-with-red-dress.jpg",
-						alt: "",
-					},
-					{
-						src: "/images/woman-with-red-dress.jpg",
-						alt: "",
-					},
-					{
-						src: "/images/woman-with-red-dress.jpg",
-						alt: "",
-					},
-				]}
-			/>
+			<ProductDetailsCarousel images={images} />
 			<section className={styles.details}>
-				<h2>
-					Elouise Striped Knit&nbsp;&nbsp;
-					<strong>$102</strong>
-				</h2>
+				<h2>{prod?.name}</h2>
+				<strong>{formatPrice(prod?.price)}</strong>
 				<section className={styles.sizesSection}>
-					<h3>
-						Size <span>*</span>
-					</h3>
-					<SizesOptions
-						sizes={[
-							{ id: 1, value: 24 },
-							{ id: 2, value: 26 },
-							{ id: 3, value: 28 },
-							{ id: 4, value: 30 },
-							{ id: 5, value: 24 },
-							{ id: 6, value: 26 },
-							{ id: 7, value: 28 },
-							{ id: 8, value: 30 },
-							{ id: 9, value: 24 },
-							{ id: 10, value: 26 },
-							{ id: 11, value: 28 },
-							{ id: 12, value: 30 },
-							{ id: 13, value: 24 },
-							{ id: 14, value: 26 },
-							{ id: 15, value: 28 },
-							{ id: 16, value: 30 },
-						]}
-					/>
 					<div className={styles.row}>
 						<Image
 							src={BoxIcon}
@@ -68,35 +105,17 @@ export default function ProductPage() {
 							alt="Box icon"
 						/>
 						<p className={styles.freeShipping}>
-							Free Shipping On All U.S. Orders
-							details
+							Free grátis para todo o Brasil
 						</p>
 					</div>
-					<Button label="Add To Bag" />
+					<AddToCartButton
+						productJson={JSON.stringify(prod)}
+						quantity={1}
+					/>
 				</section>
 				<section className={styles.descriptionWrapper}>
-					<p>
-						High waist pants from J.O.A. with cropped
-						wide legs, pleating on the front, and a
-						built-in sash tie on the side. Vertical
-						striped pattern. Pleated trim at waist.
-						Slash pockets at hip.
-						<br />
-						<br />
-						• Polyester
-						<br />
-						• Imported
-						<br />
-						• Wash cold, dry flat
-						<br />
-						<br />
-						Color: Stripe
-						<br />
-						Feel: Medium weight silky weave, raised
-						stripe texture
-					</p>
+					<p>{prod?.techInfo}</p>
 				</section>
-				<FeaturedSection style={{ marginBottom: 36 }} />
 			</section>
 		</main>
 	);
