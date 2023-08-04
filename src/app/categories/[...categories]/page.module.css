@@ -11,3 +11,20 @@
     gap: 1.4rem;
     margin-top: 20px;
 }
+
+.noItems {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 8rem;
+    height: 50vh;
+    width: 100%;
+}
+
+.noItems h2 {
+    font-family: var(--font-poppins-regular);
+    text-align: center;
+    font-weight: 400;
+    font-size: 2rem;
+    margin-top: 0.5rem;
+}
