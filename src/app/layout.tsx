@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import CartProvider from "@/contexts/CartContextProvider";
 import ScrollProvider from "@/contexts/ScrollContextProvider";
 import LayoutContent from "./LayoutContent";
+import StyledComponentsRegistry from "./registry";
 
 export default function RootLayout({
 	children,
@@ -12,10 +13,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<CartProvider>
-			<ScrollProvider>
-				<LayoutContent>{children}</LayoutContent>
-			</ScrollProvider>
-		</CartProvider>
+		<StyledComponentsRegistry>
+			<CartProvider>
+				<ScrollProvider>
+					<LayoutContent>{children}</LayoutContent>
+				</ScrollProvider>
+			</CartProvider>
+		</StyledComponentsRegistry>
 	);
 }
