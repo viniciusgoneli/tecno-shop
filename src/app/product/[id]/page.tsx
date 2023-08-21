@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import styles from "./page.module.css";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import SizesOptions from "@/components/SizesOptions";
@@ -38,6 +37,16 @@ import {
 } from "firebase/firestore";
 import AddToCartButton from "@/components/AddToCartButton/indext";
 import { Product, ProductImage } from "@/models/product";
+import S, {
+	DescriptionSection,
+	DetailsSection,
+	FreeShippingP,
+	Main,
+	PriceStrong,
+	RowDiv,
+	TechInfoP,
+	TitleH2,
+} from "./pageStyle";
 
 const db = getFirestoreDatabase();
 
@@ -91,32 +100,32 @@ export default async function ProductPage({ params }: ProductPageProps) {
 	]);
 
 	return (
-		<main className={styles.main}>
+		<Main>
 			<ProductDetailsCarousel images={images} />
-			<section className={styles.details}>
-				<h2>{prod?.name}</h2>
-				<strong>{formatPrice(prod?.price)}</strong>
-				<section className={styles.sizesSection}>
-					<div className={styles.row}>
+			<DetailsSection>
+				<TitleH2>{prod?.name}</TitleH2>
+				<PriceStrong>{formatPrice(prod?.price)}</PriceStrong>
+				<section>
+					<RowDiv>
 						<Image
 							src={BoxIcon}
 							width={16}
 							height={16}
 							alt="Box icon"
 						/>
-						<p className={styles.freeShipping}>
+						<FreeShippingP>
 							Free grátis para todo o Brasil
-						</p>
-					</div>
+						</FreeShippingP>
+					</RowDiv>
 					<AddToCartButton
 						productJson={JSON.stringify(prod)}
 						quantity={1}
 					/>
 				</section>
-				<section className={styles.descriptionWrapper}>
-					<p>{prod?.techInfo}</p>
-				</section>
-			</section>
-		</main>
+				<DescriptionSection>
+					<TechInfoP>{prod?.techInfo}</TechInfoP>
+				</DescriptionSection>
+			</DetailsSection>
+		</Main>
 	);
 }
